@@ -11,7 +11,7 @@ import streamlit as st
 from core import cargar_config, cargar_metadata, cargar_modelo, cargar_resultados, etiqueta, evaluar, hay_modelo, validar
 
 config = cargar_config()
-st.set_page_config(page_title=config["titulo"], page_icon="📡", layout="wide")
+st.set_page_config(page_title=config["titulo"], page_icon="💧", layout="wide")
 
 COLOR = {"Firmar": "#2E7D32", "Firmar con garantías": "#E09B00", "No firmar": "#C62828"}
 QUE_HACER = {
@@ -44,10 +44,10 @@ def chip(decision):
 # ---------------------------------------------------------------------------------------------
 # Encabezado
 # ---------------------------------------------------------------------------------------------
-col_logo, col_titulo = st.columns([1, 8])
+col_logo, col_titulo = st.columns([2, 7], vertical_alignment="center")
 with col_logo:
     try:
-        st.image(config["logo"], width=90)
+        st.image(config["logo"], width=220)
     except Exception:
         pass
 with col_titulo:
@@ -174,7 +174,7 @@ with tabs[1]:
     k3.metric("Firmar con garantías", int(conteo.get("Firmar con garantías", 0)))
     k4.metric("No firmar", int(conteo.get("No firmar", 0)))
 
-    solo_20 = st.toggle("Ver solo los 20 candidatos para diligencia debida", value=True)
+    solo_20 = st.toggle("Ver solo los 20 candidatos para diligencia debida", value=False)
     st.caption("**Cómo se eligen los 20:** entre los importadores con recomendación «Firmar» o «Firmar con "
                "garantías», se ordenan por afinidad con la línea Seoru (proporción de productos notificados con "
                "sérum, niacinamida, ácido hialurónico, limpiador o protector solar facial) y, en empate, por IAI.")
@@ -197,10 +197,13 @@ with tabs[1]:
                 "prob_pct": "Prob. abandono (%)", "decision": "Recomendación", "afinidad_seoru_pct": "Afinidad Seoru (%)",
                 "producto_principal": "Producto principal", "rango_cif_t": "Valor importado",
                 "rango_meses_activos": "Meses activos", "razones": "Razones principales"}
+    mostrar_tabla = vista[list(columnas)].copy()
+    mostrar_tabla["ranking_diligencia"] = [f"⭐ {int(v)}" if pd.notna(v) else "" for v in mostrar_tabla["ranking_diligencia"]]
+    marcas = {"Firmar": "🟢 Firmar", "Firmar con garantías": "🟡 Firmar con garantías", "No firmar": "🔴 No firmar"}
+    mostrar_tabla["decision"] = mostrar_tabla["decision"].map(marcas)
     st.dataframe(
-        vista[list(columnas)].rename(columns=columnas), hide_index=True, width="stretch", height=520,
+        mostrar_tabla.rename(columns=columnas), hide_index=True, width="stretch", height=520,
         column_config={
-            "Puesto (20)": st.column_config.NumberColumn(format="%d"),
             "IAI": st.column_config.ProgressColumn(min_value=0, max_value=100, format="%.0f"),
             "Afinidad Seoru (%)": st.column_config.NumberColumn(format="%.0f %%"),
             "Prob. abandono (%)": st.column_config.NumberColumn(format="%.1f %%"),
@@ -223,7 +226,7 @@ with tabs[2]:
     st.altair_chart(alt.Chart(datos_g).mark_bar(size=38).encode(
         x=alt.X("Costo:Q", title="US$ por cada 100 importadores"), y=alt.Y("Estrategia:N", title=None),
         color=alt.Color("Estrategia:N", legend=None, scale=alt.Scale(domain=datos_g["Estrategia"].tolist(),
-                                                                       range=["#9E9E9E", "#7B3FA0"])),
+                                                                       range=["#9E9E9E", "#2A2C7A"])),
         tooltip=[alt.Tooltip("Costo:Q", format=",.0f")]).properties(height=160), width="stretch")
 
     a, b = m["intervalo_diferencia"]
