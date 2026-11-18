@@ -1,0 +1,358 @@
+{
+  "evento": "abandono",
+  "clase_positiva": 1,
+  "umbrales": [
+    0.1,
+    0.16
+  ],
+  "decisiones": [
+    "Firmar",
+    "Firmar con garantías",
+    "No firmar"
+  ],
+  "metricas": {
+    "costo_modelo": 2862823.0616302188,
+    "costo_regla": 2793240.55666004,
+    "regla_simple": "No firmar con quien importa en menos de 7 meses al año; firmar con los demás",
+    "unidad_costo": "en US$ por cada 100 importadores evaluados (prueba 2024, modelo entrenado con 2023)",
+    "intervalo_diferencia": [
+      -339960.23856858816,
+      220775.34791252489
+    ],
+    "pct_muestras_modelo_gana": 0.327,
+    "auc_modelo": 0.7448979591836735,
+    "auc_regla": 0.7351473922902494,
+    "sensibilidad_modelo": 0.8367346938775511,
+    "sensibilidad_regla": 0.826530612244898,
+    "abandonos_que_firma_modelo": 16,
+    "abandonos_que_firma_regla": 17,
+    "importadores_prueba": 503
+  },
+  "columnas": [
+    {
+      "nombre": "log_cif",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 4.3012946175153814,
+      "maximo": 7.914123420155775,
+      "referencia": 5.101625215550174,
+      "p10": 4.447959470700734,
+      "p90": 6.432026857421807
+    },
+    {
+      "nombre": "n_decl_t",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 1.0,
+      "maximo": 11460.0,
+      "referencia": 13.0,
+      "p10": 2.0,
+      "p90": 155.10000000000002
+    },
+    {
+      "nombre": "n_proveedores_t",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 1.0,
+      "maximo": 33.0,
+      "referencia": 2.0,
+      "p10": 1.0,
+      "p90": 6.0
+    },
+    {
+      "nombre": "n_paises_t",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 1.0,
+      "maximo": 27.0,
+      "referencia": 1.0,
+      "p10": 1.0,
+      "p90": 5.0
+    },
+    {
+      "nombre": "n_meses_activos_t",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 1.0,
+      "maximo": 12.0,
+      "referencia": 6.0,
+      "p10": 2.0,
+      "p90": 12.0
+    },
+    {
+      "nombre": "share_china_t",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 1.0,
+      "referencia": 0.0,
+      "p10": 0.0,
+      "p90": 1.0
+    },
+    {
+      "nombre": "share_ue_t",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 1.0,
+      "referencia": 0.0,
+      "p10": 0.0,
+      "p90": 1.0
+    },
+    {
+      "nombre": "share_usa_t",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 1.0,
+      "referencia": 0.0,
+      "p10": 0.0,
+      "p90": 0.9931757659619901
+    },
+    {
+      "nombre": "momentum_h2_t",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 1.0,
+      "referencia": 0.5486329528149678,
+      "p10": 0.18607187873160808,
+      "p90": 1.0
+    },
+    {
+      "nombre": "usd_por_kg_t",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.2796872341845887,
+      "maximo": 10901.842592592591,
+      "referencia": 19.099665162931487,
+      "p10": 2.6244656727899884,
+      "p90": 170.7197249578873
+    },
+    {
+      "nombre": "reg_t",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 692.0,
+      "referencia": 1.0,
+      "p10": 0.0,
+      "p90": 25.0
+    },
+    {
+      "nombre": "reg_crec",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 128.0,
+      "referencia": 0.7142857142857143,
+      "p10": 0.0,
+      "p90": 4.0
+    },
+    {
+      "nombre": "share_fab_extranjero_t",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 1.0,
+      "referencia": 0.0,
+      "p10": 0.0,
+      "p90": 1.0
+    },
+    {
+      "nombre": "n_fabricantes_t",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 113.0,
+      "referencia": 1.0,
+      "p10": 0.0,
+      "p90": 7.0
+    },
+    {
+      "nombre": "cat_skincare",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 1.0,
+      "referencia": 0.0,
+      "p10": 0.0,
+      "p90": 0.20741901776384544
+    },
+    {
+      "nombre": "cat_maquillaje",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 1.0,
+      "referencia": 0.0,
+      "p10": 0.0,
+      "p90": 0.3333333333333333
+    },
+    {
+      "nombre": "cat_capilar",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 1.0,
+      "referencia": 0.0,
+      "p10": 0.0,
+      "p90": 0.25
+    },
+    {
+      "nombre": "cat_corporal",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 1.0,
+      "referencia": 0.0,
+      "p10": 0.0,
+      "p90": 0.1666666666666666
+    },
+    {
+      "nombre": "cat_solar",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 1.0,
+      "referencia": 0.0,
+      "p10": 0.0,
+      "p90": 0.008756137479541737
+    },
+    {
+      "nombre": "n_categorias_t",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 9.0,
+      "referencia": 0.0,
+      "p10": 0.0,
+      "p90": 4.0
+    },
+    {
+      "nombre": "edad_anios_t",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.2902121834360027,
+      "maximo": 79.60301163586584,
+      "referencia": 11.160848733744011,
+      "p10": 2.7030800821355236,
+      "p90": 34.252703627652295
+    },
+    {
+      "nombre": "camara_bogota",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 1.0,
+      "referencia": 1.0,
+      "p10": 0.0,
+      "p90": 1.0
+    },
+    {
+      "nombre": "intensidad_sanitaria",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 837.073211564547,
+      "referencia": 0.08998617445131188,
+      "p10": 0.0,
+      "p90": 98.48300891042724
+    },
+    {
+      "nombre": "log_valor_por_mes",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 3.404430867039779,
+      "maximo": 6.83494217410815,
+      "referencia": 4.482585139912368,
+      "p10": 3.946537347547091,
+      "p90": 5.423001094510672
+    },
+    {
+      "nombre": "decl_por_proveedor",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 1.0,
+      "maximo": 1716.0,
+      "referencia": 6.0,
+      "p10": 1.5,
+      "p90": 52.05000000000001
+    },
+    {
+      "nombre": "afinidad_seoru",
+      "tipo": "numérica",
+      "permite_faltantes": false,
+      "minimo": 0.0,
+      "maximo": 1.0,
+      "referencia": 0.0,
+      "p10": 0.0,
+      "p90": 0.12992659514398644
+    },
+    {
+      "nombre": "forma",
+      "tipo": "categórica",
+      "permite_faltantes": false,
+      "categorias": [
+        "SOCIEDADES POR ACCIONES SIMPLIFICADAS",
+        "ANONIMA",
+        "LIMITADA",
+        "OTRA"
+      ],
+      "referencia": "SOCIEDADES POR ACCIONES SIMPLIFICADAS"
+    },
+    {
+      "nombre": "grupo_actividad",
+      "tipo": "categórica",
+      "permite_faltantes": false,
+      "categorias": [
+        "comercio mayorista",
+        "comercio minorista",
+        "otra actividad"
+      ],
+      "referencia": "comercio mayorista"
+    }
+  ],
+  "etiquetas": {
+    "nit": "NIT",
+    "razon_social": "Importador",
+    "log_cif": "Valor importado al año",
+    "n_decl_t": "Número de declaraciones",
+    "n_proveedores_t": "Número de proveedores",
+    "n_paises_t": "Países de origen",
+    "n_meses_activos_t": "Meses con importaciones",
+    "share_china_t": "Participación de China",
+    "share_ue_t": "Participación de la UE",
+    "share_usa_t": "Participación de EE. UU.",
+    "momentum_h2_t": "Peso del segundo semestre",
+    "usd_por_kg_t": "Precio por kilo",
+    "reg_t": "Notificaciones INVIMA nuevas",
+    "reg_crec": "Crecimiento de notificaciones",
+    "share_fab_extranjero_t": "Fabricantes extranjeros (proporción)",
+    "n_fabricantes_t": "Número de fabricantes",
+    "cat_skincare": "Proporción en cuidado de la piel",
+    "cat_maquillaje": "Proporción en maquillaje",
+    "cat_capilar": "Proporción capilar",
+    "cat_corporal": "Proporción corporal",
+    "cat_solar": "Proporción solar",
+    "n_categorias_t": "Categorías de producto",
+    "edad_anios_t": "Antigüedad de la empresa (años)",
+    "camara_bogota": "Matrícula en Bogotá (1 = sí)",
+    "intensidad_sanitaria": "Intensidad sanitaria",
+    "log_valor_por_mes": "Valor por mes activo",
+    "decl_por_proveedor": "Declaraciones por proveedor",
+    "afinidad_seoru": "Afinidad con Seoru",
+    "forma": "Forma jurídica",
+    "grupo_actividad": "Actividad económica"
+  },
+  "columna_id": "nit",
+  "n_entrenamiento": 1000,
+  "versiones": {
+    "scikit-learn": "1.9.1",
+    "pandas": "3.0.5",
+    "numpy": "2.5.3",
+    "joblib": "1.6.0"
+  },
+  "python": "3.13",
+  "fecha_exportacion": "2026-11-18T08:15:41"
+}
