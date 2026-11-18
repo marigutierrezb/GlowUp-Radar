@@ -54,6 +54,23 @@ with col_titulo:
     st.title(config["titulo"])
     st.caption(f"{config['cliente']} · {config['descripcion']}")
 
+with st.container(border=True):
+    st.markdown("#### ¿Qué es GlowUp Radar?")
+    st.markdown(
+        "Seoru necesita un importador colombiano para vender sus productos en Colombia. Si escoge uno que al año "
+        "siguiente casi deja de importar (**abandona**), pierde el canal de venta y su inversión. GlowUp Radar analiza "
+        "a los **540 importadores de cosméticos de 2025** y estima, para cada uno, **qué tan probable es que abandone "
+        "en 2026**.")
+    i1, i2, i3, i4 = st.columns(4)
+    i1.markdown("**1. Mide el riesgo**  \nMira cuántos meses al año importa, cuánto importa, sus registros en el "
+                "INVIMA y la antigüedad de la empresa.")
+    i2.markdown("**2. Recomienda**  \n🟢 **Firmar**: riesgo bajo  \n🟡 **Con garantías**: riesgo medio  \n"
+                "🔴 **No firmar**: riesgo alto")
+    i3.markdown("**3. Escoge 20 candidatos**  \nEntre los confiables, prioriza a quienes venden productos parecidos "
+                "a los de Seoru (sérums, limpiadores, protector solar facial).")
+    i4.markdown("**4. Índice de arraigo (IAI)**  \nEl riesgo expresado de 0 a 100: **más alto = más confiable**. "
+                "IAI 96 = 4 % de probabilidad de abandonar.")
+
 if not hay_modelo():
     st.info("Todavía no hay modelo en la carpeta model/. Exporten el modelo con exportar (README, PASO 3).")
     st.divider()
