@@ -68,8 +68,8 @@ with st.container(border=True):
                 "🔴 **No firmar**: riesgo alto")
     i3.markdown("**3. Escoge 20 candidatos**  \nEntre los confiables, prioriza a quienes venden productos parecidos "
                 "a los de Seoru (sérums, limpiadores, protector solar facial).")
-    i4.markdown("**4. Índice de arraigo (IAI)**  \nEl riesgo expresado de 0 a 100: **más alto = más confiable**. "
-                "IAI 96 = 4 % de probabilidad de abandonar.")
+    i4.markdown("**4. Explica por qué**  \nPara cada importador muestra las razones que más suben o bajan su "
+                "riesgo, para que Seoru entienda la recomendación.")
 
 if not hay_modelo():
     st.info("Todavía no hay modelo en la carpeta model/. Exporten el modelo con exportar (README, PASO 3).")
@@ -92,13 +92,12 @@ u1, u2 = meta["umbrales"]
 def tabla_radar():
     t = resultados.copy()
     t["nit"] = t["nit"].astype(str)
-    t["IAI"] = (100 * (1 - t["probabilidad"])).round(1)
     t["prob_pct"] = (100 * t["probabilidad"]).round(1)
     t["busqueda"] = t["razon_social"].astype(str) + " · NIT " + t["nit"]
     orden_tam = ["US$0 a US$100.000", "US$100.000 a US$500.000", "US$500.000 a US$2.000.000",
                  "US$2.000.000 a US$10.000.000", "más de US$10.000.000"]
     t["rango_cif_t"] = pd.Categorical(t["rango_cif_t"], categories=orden_tam, ordered=True)
-    return t.sort_values("IAI", ascending=False).reset_index(drop=True)
+    return t.sort_values("probabilidad", ascending=True).reset_index(drop=True)
 
 
 radar = tabla_radar()
@@ -128,12 +127,10 @@ def mostrar_razones(lista):
 
 
 def tarjeta_resultado(prob, decision, ranking=None):
-    iai = 100 * (1 - prob)
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Índice de arraigo (IAI)", f"{iai:.0f} / 100", help="IAI = 100 × (1 − probabilidad de abandono). "
-              "Más alto = más probable que siga importando el próximo año.")
-    c2.metric("Probabilidad de abandono", f"{prob:.0%}")
-    with c3:
+    c1, c2 = st.columns(2)
+    c1.metric("Probabilidad de abandono", f"{prob:.0%}", help="Probabilidad de que el importador reduzca sus "
+              "importaciones de cosméticos a menos de la mitad el año siguiente.")
+    with c2:
         st.markdown("**Recomendación**")
         st.markdown(chip(decision), unsafe_allow_html=True)
     st.info(QUE_HACER.get(decision, ""))
@@ -194,7 +191,7 @@ with tabs[1]:
     solo_20 = st.toggle("Ver solo los 20 candidatos para diligencia debida", value=False)
     st.caption("**Cómo se eligen los 20:** entre los importadores con recomendación «Firmar» o «Firmar con "
                "garantías», se ordenan por afinidad con la línea Seoru (proporción de productos notificados con "
-               "sérum, niacinamida, ácido hialurónico, limpiador o protector solar facial) y, en empate, por IAI.")
+               "sérum, niacinamida, ácido hialurónico, limpiador o protector solar facial) y, en empate, por menor probabilidad de abandono.")
     f1, f2, f3 = st.columns(3)
     decisiones_sel = f1.multiselect("Recomendación", meta["decisiones"], default=meta["decisiones"])
     tamanos = [c for c in radar["rango_cif_t"].cat.categories if (radar["rango_cif_t"] == c).any()]
@@ -210,7 +207,7 @@ with tabs[1]:
     if solo_20:
         vista = vista[vista["ranking_diligencia"].notna()].sort_values("ranking_diligencia")
     st.write(f"**{len(vista)}** importadores")
-    columnas = {"ranking_diligencia": "Puesto (20)", "razon_social": "Importador", "nit": "NIT", "IAI": "IAI",
+    columnas = {"ranking_diligencia": "Puesto (20)", "razon_social": "Importador", "nit": "NIT",
                 "prob_pct": "Prob. abandono (%)", "decision": "Recomendación", "afinidad_seoru_pct": "Afinidad Seoru (%)",
                 "producto_principal": "Producto principal", "rango_cif_t": "Valor importado",
                 "rango_meses_activos": "Meses activos", "razones": "Razones principales"}
@@ -221,7 +218,6 @@ with tabs[1]:
     st.dataframe(
         mostrar_tabla.rename(columns=columnas), hide_index=True, width="stretch", height=520,
         column_config={
-            "IAI": st.column_config.ProgressColumn(min_value=0, max_value=100, format="%.0f"),
             "Afinidad Seoru (%)": st.column_config.NumberColumn(format="%.0f %%"),
             "Prob. abandono (%)": st.column_config.NumberColumn(format="%.1f %%"),
         })
@@ -283,8 +279,6 @@ with tabs[3]:
     st.subheader("Cómo convierte el radar una probabilidad en una recomendación")
     regla = pd.DataFrame({
         "Probabilidad de abandono": [f"menos de {u1:.0%}", f"{u1:.0%} a {u2:.0%}", f"{u2:.0%} o más"],
-        "Índice de arraigo (IAI)": [f"más de {100 * (1 - u1):.0f}", f"{100 * (1 - u2):.0f} a {100 * (1 - u1):.0f}",
-                                    f"{100 * (1 - u2):.0f} o menos"],
         "Recomendación": meta["decisiones"],
     })
     st.dataframe(regla, hide_index=True, width="stretch")
